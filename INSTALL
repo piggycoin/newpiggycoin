@@ -1,0 +1,9 @@
+Building hackcoin
+
+See doc/readme-qt.rst for instructions on building hackcoin QT,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of hackcoin.
+
+See doc/build-*.txt for instructions on building hackcoind,
+the intended-for-services, no-graphical-interface, reference
+implementation of hackcoin.
