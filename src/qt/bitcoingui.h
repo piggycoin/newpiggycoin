@@ -10,7 +10,7 @@ class WalletModel;
 class TransactionView;
 class OverviewPage;
 class StatisticsPage;
-//class BlockBrowser;
+class BlockBrowser;
 //class PoolBrowser;
 class AddressBookPage;
 class SendCoinsDialog;
@@ -65,7 +65,7 @@ private:
 
     OverviewPage *overviewPage;
     StatisticsPage *statisticsPage;
- //   BlockBrowser *blockBrowser;
+    BlockBrowser *blockBrowser;
  //   PoolBrowser *poolBrowser;
 	ChatWindow *chatWindow;
     QWidget *transactionsPage;
@@ -84,7 +84,7 @@ private:
     QMenuBar *appMenuBar;
     QAction *overviewAction;
     QAction *statisticsAction;
-//    QAction *blockAction;
+    QAction *blockAction;
 //    QAction *poolAction;
 	QAction *chatAction;
     QAction *historyAction;
@@ -153,7 +153,7 @@ private slots:
     /** Switch to statistics page*/
     void gotoStatisticsPage();
     /** Switch to block explorer*/
-//    void gotoBlockBrowser();
+    void gotoBlockBrowser();
 	    /** Switch to block explorer*/
 //    void gotoPoolBrowser();
     /** Switch to history (transactions) page */
