@@ -152,13 +152,7 @@ void Serveur::readServeur()
 
 
             }
-            else if(msg.contains(QRegExp("= ([a-zA-Z0-9\\#]+) :")))
-            {
 
-             QStringList msg3 = msg.split("= ");
-             QStringList msg4 = msg3[1].split(" :");
-             updateUsersList(msg4[0],msg);
-            }
 
 
         }
@@ -169,7 +163,7 @@ void Serveur::readServeur()
 void Serveur::sendData(QString txt)
 {
 	if(this->state()==QAbstractSocket::ConnectedState)
-	{
+    {
         this->write((txt+"\r\n").toUtf8());
 	}
 }
@@ -187,6 +181,8 @@ QString Serveur::parseCommande(QString comm,bool serveur)
 
         if(pref=="me")
             return "PRIVMSG "+destChan+" ACTION " + msg + "";
+        else if(pref=="msg")
+            return "MSG "+destChan+" ACTION " + msg + "";
         else if(pref=="join")
         {
             join(msg);
@@ -249,6 +245,11 @@ QString Serveur::parseCommande(QString comm,bool serveur)
                         ecrire("-> Nickname changed to "+msg);
             return "NICK "+msg;
         }
+        else if(pref=="msg")
+        {
+            return "MSG "+msg;
+        }
+
         else
             return pref+" "+msg;
     }
@@ -262,7 +263,7 @@ QString Serveur::parseCommande(QString comm,bool serveur)
         if(comm.startsWith(":"))
             comm.insert(0,":");
 
-        return "PRIVMSG "+destChan+" "+comm.replace(" ",".")+"";
+        return "PRIVMSG "+destChan+" "+comm.replace(" ","\t");
     }
 	else
 	{

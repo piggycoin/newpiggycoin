@@ -323,9 +323,9 @@ void BitcoinGUI::createActions()
     backupWalletAction->setToolTip(tr("Backup Piggybank to another location"));
     changePassphraseAction = new QAction(QIcon(":/icons/key"), tr("&Change Passphrase..."), this);
     changePassphraseAction->setToolTip(tr("Change the passphrase used for wallet encryption"));
-    unlockWalletAction = new QAction(QIcon(":/icons/lock_open"), tr("&Unlock Piggybank..."), this);
+    unlockWalletAction = new QAction(QIcon(":/icons/mint_open"), tr("&Unlock Piggybank..."), this);
     unlockWalletAction->setToolTip(tr("Unlock Piggybank"));
-    lockWalletAction = new QAction(QIcon(":/icons/lock_closed"), tr("&Lock Piggybank"), this);
+    lockWalletAction = new QAction(QIcon(":/icons/mint_closed"), tr("&Lock Piggybank"), this);
     lockWalletAction->setToolTip(tr("Lock Piggybank"));
     signMessageAction = new QAction(QIcon(":/icons/edit"), tr("Sign &message..."), this);
     verifyMessageAction = new QAction(QIcon(":/icons/transaction_0"), tr("&Verify message..."), this);
@@ -372,8 +372,6 @@ void BitcoinGUI::createMenuBar()
     QMenu *settings = appMenuBar->addMenu(tr("&Settings"));
     settings->addAction(encryptWalletAction);
     settings->addAction(changePassphraseAction);
-    settings->addAction(unlockWalletAction);
-    settings->addAction(lockWalletAction);
     settings->addSeparator();
     settings->addAction(optionsAction);
 
@@ -405,7 +403,9 @@ void BitcoinGUI::createToolBars()
 	toolbar->addAction(blockAction);
 //	toolbar->addAction(poolAction);
 	toolbar->addAction(chatAction);
-	toolbar->addAction(exportAction);
+	toolbar->addAction(unlockWalletAction);
+	toolbar->addAction(lockWalletAction);
+//	toolbar->addAction(exportAction);
     QWidget* spacer = new QWidget();
     spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     toolbar->addWidget(spacer);
