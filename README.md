@@ -40,7 +40,7 @@ Getting Started
 ### Quickstart for Linux Users
 
     cd ~
-    sudo apt-get install build-essential libboost-all-dev libcurl4-openssl-dev libdb5.1-dev libdb5.1++-dev /
+    sudo apt-get install build-essential libboost-all-dev libcurl4-openssl-dev libdb5.1-dev libdb5.1++-dev \
                          qt4* libqrencode-dev
     git clone https://github.com/piggycoin/newpiggycoin.git
     cd newpiggycoin
