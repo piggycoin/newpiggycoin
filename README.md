@@ -3,12 +3,12 @@ Piggycoin integration/staging tree
 
 http://www.piggy-coin.org
 
-Copyright (c) 2014 Piggycoin Developers
-Copyright (c) 2014 Hackcoin Developers
-Copyright (c) 2013-2014 NovaCoin Developers
-Copyright (c) 2011-2012 PPCoin Developers
-Copyright (c) 2011-2014 Litecoin Developers
-Copyright (c) 2009-2014 Bitcoin Developers
+Copyright (c) 2014 Piggycoin Developers  
+Copyright (c) 2014 Hackcoin Developers  
+Copyright (c) 2013-2014 NovaCoin Developers  
+Copyright (c) 2011-2012 PPCoin Developers  
+Copyright (c) 2011-2014 Litecoin Developers  
+Copyright (c) 2009-2014 Bitcoin Developers  
 
 What is Piggycoin?
 ----------------
