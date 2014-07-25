@@ -14,11 +14,9 @@ What is Piggycoin?
 ----------------
 
 Piggycoin is a beginner-friendly cryptocurrency that uses scrypt as a proof-of-work algorithm.
- - X minute block targets
- - subsidy halves in X blocks (~X years)
- - ~X total coins
- - X coins per block
- - X blocks to retarget difficulty
+ - 2 minute block targets
+ - 2,100,000,000 total coins
+ - 4000 coins per block
 
 For more information, as well as an immediately useable, binary version of
 the Piggycoin client sofware, see http://www.piggy-coin.org.
