@@ -14,7 +14,7 @@ packages:
 reference_datetime: "2011-01-30 00:00:00"
 remotes: []
 files:
-- "qt-everywhere-opensource-src-4.8.6.tar.gz"
+- "qt-everywhere-opensource-src-4.6.4.tar.gz"
 script: |
   export FAKETIME=$REFERENCE_DATETIME
   export TZ=UTC
@@ -30,15 +30,15 @@ script: |
   # Also build development tools.
   INSTALLPREFIX="$HOME/install"
   # Integrity Check
-  echo "8b14dd91b52862e09b8e6a963507b74bc2580787d171feda197badfa7034032c  qt-everywhere-opensource-src-4.8.6.tar.gz" | sha256sum -c
+  #echo "8b14dd91b52862e09b8e6a963507b74bc2580787d171feda197badfa7034032c  qt-everywhere-opensource-src-4.8.6.tar.gz" | sha256sum -c
   # Make install directories
   mkdir -p $INSTALLPREFIX
   mkdir -p $INSTALLPREFIX/include
   PKGCONFIGDIR=$INSTALLPREFIX/lib/pkgconfig
   mkdir -p $PKGCONFIGDIR
   #
-  tar xzf qt-everywhere-opensource-src-4.8.6.tar.gz
-  cd qt-everywhere-opensource-src-4.8.6
+  tar xzf qt-everywhere-opensource-src-4.6.4.tar.gz
+  cd qt-everywhere-opensource-src-4.6.4
   QTBUILDDIR=$(pwd)
   sed 's/TODAY=`date +%Y-%m-%d`/TODAY=2011-01-30/' -i configure
 
