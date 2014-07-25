@@ -91,7 +91,7 @@ script: |
   cp -f ${BUILD_DIR}/qtbase/mkspecs/macx-clang/qplatformdefs.h ${BUILD_DIR}/qtbase/mkspecs/macx-clang-linux/
 
   cat > ${SPECFILE} <<ENDCONF
- 
+
   MAKEFILE_GENERATOR      = UNIX
   CONFIG                 += app_bundle incremental global_init_link_order lib_version_first plugin_no_soname absolute_library_soname
   QMAKE_INCREMENTAL_STYLE = sublib
@@ -122,7 +122,7 @@ script: |
   QMAKE_INSTALL_NAME_TOOL=${HOST}-install_name_tool
 
   load(qt_config)
- 
+
   ENDCONF
 
   pushd ${BUILD_DIR}

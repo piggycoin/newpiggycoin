@@ -1,5 +1,5 @@
 ---
-name: "bitcoin-deps"
+name: "newpiggycoin-deps"
 suites:
 - "precise"
 architectures:
@@ -74,14 +74,14 @@ script: |
   +++ miniupnpc-1.9/Makefile.mingw        2013-09-29 19:09:29.663318691 -1000
   @@ -67,8 +67,8 @@
    
-   wingenminiupnpcstrings.o:	wingenminiupnpcstrings.c
+   wingenminiupnpcstrings.o:  wingenminiupnpcstrings.c
    
   -miniupnpcstrings.h: miniupnpcstrings.h.in wingenminiupnpcstrings
-  -	wingenminiupnpcstrings \$< \$@
+  - wingenminiupnpcstrings \$< \$@
   +miniupnpcstrings.h: miniupnpcstrings.h.in 
-  +	sed -e 's|OS/version|MSWindows/5.1.2600|' -e 's|MINIUPNPC_VERSION_STRING \"version\"|MINIUPNPC_VERSION_STRING \"VERSIONHERE\"|' \$< > \$@
+  + sed -e 's|OS/version|MSWindows/5.1.2600|' -e 's|MINIUPNPC_VERSION_STRING \"version\"|MINIUPNPC_VERSION_STRING \"VERSIONHERE\"|' \$< > \$@
    
-   minixml.o:	minixml.c minixml.h miniupnpcstrings.h
+   minixml.o: minixml.c minixml.h miniupnpcstrings.h
    
   " | sed "s/VERSIONHERE/$(cat VERSION)/" | patch -p1
     mkdir -p dll

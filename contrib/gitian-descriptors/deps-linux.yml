@@ -1,5 +1,5 @@
 ---
-name: "bitcoin"
+name: "newpiggycoin"
 suites:
 - "precise"
 architectures:
