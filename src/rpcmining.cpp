@@ -68,7 +68,18 @@ Value getmininginfo(const Array& params, bool fHelp)
     weight.push_back(Pair("combined",  (uint64_t)nWeight));
     obj.push_back(Pair("stakeweight", weight));
 
-    obj.push_back(Pair("stakeinterest",    (uint64_t)COIN_YEAR_REWARD));
+    int64_t nNextBestHeight = nBestHeight + 1;
+    //if(nNextBestHeight >= MODIFIER2_HEIGHT)
+    //    obj.push_back(Pair("stakeinterest",    (uint64_t)MODIFIER2_STAKE_INTEREST));
+    //else
+    if(nNextBestHeight >= MODIFIER1_HEIGHT)
+        obj.push_back(Pair("stakeinterest",    (uint64_t)MODIFIER1_STAKE_INTEREST));
+    else
+    if(nNextBestHeight >= MODIFIER_INTERVAL_SWITCH)
+        obj.push_back(Pair("stakeinterest",    (uint64_t)MAX_MINT_PROOF_OF_STAKE));
+    else
+        obj.push_back(Pair("stakeinterest",    (uint64_t)0));
+
     obj.push_back(Pair("testnet",       fTestNet));
     return obj;
 }
