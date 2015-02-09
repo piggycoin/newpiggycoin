@@ -40,13 +40,8 @@ static const int64_t MIN_RELAY_TX_FEE = MIN_TX_FEE;
 static const int64_t MAX_MONEY = 1000000000 * COIN; // Move from max coins 1/2 Million to 1 Billion (~14 years @ 3%)
 static const int64_t MAX_MINT_PROOF_OF_STAKE = 0.15 * COIN; // 15% Annual interest (Old method - still used to calculate stake reward)
 
-//static const int64_t GENESIS_STAKE_MIN_AGE    = 8 * 60 * 60;        // 8 hour
-//static const int64_t GENESIS_STAKE_MAX_AGE    = 9 * 30 * 24 * 60 * 60;  // 270 days ~9 months (9 months from genesis is mod1 fork point) // -1 = unlimited
-
 static const int64_t MODIFIER1_HEIGHT           = 415000;   // March 6th 2015 @ ~4:30PM PST
 static const int64_t MODIFIER1_STAKE_INTEREST   = 3;        // Go to 3% Annual interest starting at block 8000 (New method - fixes overflow issue)
-//static const int64_t MODIFIER1_STAKE_MIN_AGE    = 8 * 60 * 60;        // 8 hour
-//static const int64_t MODIFIER1_STAKE_MAX_AGE    = 3 * 30 * 24 * 60 * 60;  // 90 days ~3 months
 
 inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
 // Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp.
