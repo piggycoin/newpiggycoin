@@ -1,4 +1,4 @@
-newpiggycoin 1.1.5.1 BETA
+newpiggycoin 1.2.0.0 BETA
 
 Copyright (c) 2014 PiggyCoin Developers
 Copyright (c) 2013 NovaCoin Developers

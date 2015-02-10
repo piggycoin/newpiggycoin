@@ -13,17 +13,20 @@ Copyright (c) 2009-2014 Bitcoin Developers
 What is Piggycoin?
 ----------------
 
-Piggycoin is a beginner-friendly cryptocurrency that uses scrypt as a proof-of-work algorithm.
- - 2 minute block targets
- - 2,100,000,000 total coins
- - 4000 coins per block
+Piggycoin is a beginner-friendly cryptocurrency that uses X11 for proof-of-work, adds proof-of-stake at block 8,000 and depricates proof-of-work at block 10,000.
 
+ - 1 minute block targets
+ - 1,000,000,000 total coins
+ - 23,700 coins per block (PoW until block 10,000)
+ - 0.13% effective annual interest (PoS @ block 8,000)
+ - 3% interest (@ block 415,000 Approx March 6th, 2015)
+ 
 For more information, as well as an immediately useable, binary version of
 the Piggycoin client sofware, see http://www.piggy-coin.org.
 
 Getting Started
 ----------------
-### How to build UltimateCoin
+### How to build PiggyCoin
 
     sudo apt-get install build-essential \
                          libssl-dev \

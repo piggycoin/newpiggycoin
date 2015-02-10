@@ -40,10 +40,10 @@ CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // "standard" scrypt target limit
 CBigNum bnProofOfStakeLimit(~uint256(0) >> 20);
 CBigNum bnProofOfWorkLimitTestNet(~uint256(0) >> 16);
 
-unsigned int nTargetSpacing = 1 * 60; // 60 seconds
-unsigned int nStakeMinAge = 8 * 60 * 60; // 8 hour
-unsigned int nStakeMaxAge = -1;           //unlimited
-unsigned int nModifierInterval = 10 * 60; // time to elapse before new modifier is computed
+unsigned int nTargetSpacing = 1 * 60;           // 60 seconds
+unsigned int nStakeMinAge = 8 * 60 * 60;        // 8 hour
+unsigned int nStakeMaxAge = 9 * 30 * 24 * 60 * 60;  // 270 days ~9 months (9 months from genesis is mod1 fork point) // -1 = unlimited
+unsigned int nModifierInterval = 10 * 60;       // time to elapse before new modifier is computed
 
 int nCoinbaseMaturity = 50;
 CBlockIndex* pindexGenesisBlock = NULL;
@@ -975,26 +975,44 @@ int64_t GetProofOfWorkReward(int64_t nFees)
         {
             nSubsidy = 100 * COIN;
         }
-	
+    
     if (fDebug && GetBoolArg("-printcreation"))
         printf("GetProofOfWorkReward() : create=%s nSubsidy=%"PRId64"\n", FormatMoney(nSubsidy).c_str(), nSubsidy);
-	
+    
     return nSubsidy + nFees;
 }
 
-const int DAILY_BLOCKCOUNT =  2880;
-// miner's coin stake reward based on coin age spent (coin-days)
+// miner's coin stake reward based on coin age spent (coin-days) -- Fixed for overflow on nCoinAge * MAX_MINT_PROOF_OF_STAKE
 int64_t GetProofOfStakeReward(int64_t nCoinAge, int64_t nFees)
 {
-    int64_t nRewardCoinYear;
+    int64_t nSubsidy = 0;
+    int64_t nStakeInterest = 0;
+    int64_t nNextBestHeight = pindexBest->nHeight + 1;
 
-    nRewardCoinYear = MAX_MINT_PROOF_OF_STAKE;
-
-    int64_t nSubsidy = nCoinAge * nRewardCoinYear / 365 / COIN;
-
+    //if(nNextBestHeight >= MODIFIER2_HEIGHT)
+    //{
+    //    nStakeInterest = MODIFIER2_INTEREST;
+    //    nSubsidy = nCoinAge * MODIFIER2_INTEREST / 100 / 365;
+    //}
+    //else
+    if(nNextBestHeight >= MODIFIER1_HEIGHT)
+    {
+        nStakeInterest = MODIFIER1_STAKE_INTEREST;
+        nSubsidy = nCoinAge * nStakeInterest / 100 / 365;
+    }
+    else
+    if(nNextBestHeight >= MODIFIER_INTERVAL_SWITCH)
+    {
+        nStakeInterest = MAX_MINT_PROOF_OF_STAKE;
+        nSubsidy = nCoinAge * nStakeInterest / 365 / COIN;
+        // Here is where the issue was, { nCoinAge * MAX_MINT_PROOF_OF_STAKE } overflows int64_t
+    }
 
     if (fDebug && GetBoolArg("-printcreation"))
-        printf("GetProofOfStakeReward(): create=%s nCoinAge=%"PRId64"\n", FormatMoney(nSubsidy).c_str(), nCoinAge);
+        printf("GetProofOfStakeReward(): MaxMint=%s nFees=%s nCoinAge=%"PRId64" nStakeInterest=%"PRId64"%% nNextBestHeight=%"PRId64"\n",
+                FormatMoney(nSubsidy).c_str(),
+                FormatMoney(nFees).c_str(),
+                nCoinAge, nStakeInterest, nNextBestHeight);
 
     return nSubsidy + nFees;
 }
@@ -1585,6 +1603,8 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
             return error("ConnectBlock() : %s unable to get coin age for coinstake", vtx[1].GetHash().ToString().substr(0,10).c_str());
 
         int64_t nCalculatedStakeReward = GetProofOfStakeReward(nCoinAge, nFees);
+        if (fDebug && GetBoolArg("-printcreation"))
+            printf("GetProofOfStakeReward():  Minted=%s\n", FormatMoney(nStakeReward - nFees).c_str());
 
         if (nStakeReward > nCalculatedStakeReward)
             return DoS(100, error("ConnectBlock() : coinstake pays too much(actual=%"PRId64" vs calculated=%"PRId64")", nStakeReward, nCalculatedStakeReward));
@@ -2503,7 +2523,7 @@ bool LoadBlockIndex(bool fAllowNew)
         block.nTime    = 1401045631;
         block.nBits    = bnProofOfWorkLimit.GetCompact();
         block.nNonce   = 987160;
-		if(fTestNet)
+        if(fTestNet)
         {
             block.nNonce   = 0;
         }

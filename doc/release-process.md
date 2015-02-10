@@ -12,11 +12,11 @@ Release Process
 
 ###tag version in git
 
-	git tag -s v(new version, e.g. 1.1.5.1)
+	git tag -s v(new version, e.g. 1.2.0.0)
 
 ###write release notes. git shortlog helps a lot, for example:
 
-	git shortlog --no-merges v(current version, e.g. 1.1.5)..v(new version, e.g. 1.1.5.1)
+	git shortlog --no-merges v(current version, e.g. 1.1.5)..v(new version, e.g. 1.2.0.0)
 
 * * *
 
@@ -25,7 +25,7 @@ Release Process
  From a directory containing the newpiggycoin source, gitian-builder and gitian.sigs
   
 	export SIGNER=(your gitian key, ie bluematt, sipa, etc)
-	export VERSION=(new version, e.g. 1.1.5.1)
+	export VERSION=(new version, e.g. 1.2.0.0)
 	export URL=(github repository)
 	pushd ./newpiggycoin
 	git checkout v${VERSION}
