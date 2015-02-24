@@ -1,0 +1,75 @@
+# Environment setup #
+
+(Debian wheezy on Feb 17th 2015)
+
+
+sudo apt-get install mingw-w64
+
+cd ~
+mkdir ~/newpiggycoin/libs
+
+
+# Thirdparty libraries #
+
+## openssl ##
+Download page: http://www.openssl.org/source/
+
+cd ~/newpiggycoin/libs/
+wget http://www.openssl.org/source/openssl-1.0.1j.tar.gz
+tar zxvf openssl-1.0.1j.tar.gz
+cd openssl-1.0.1j/
+CROSS_COMPILE="i686-w64-mingw32-" ./Configure no-zlib no-shared no-dso no-krb5 no-camellia no-capieng no-cast no-cms no-dtls1 no-gost no-gmp no-heartbeats no-idea no-jpake no-md2 no-mdc2 no-rc5 no-rdrand no-rfc3779 no-rsax no-sctp no-seed no-sha0 no-static_engine no-whirlpool no-rc2 no-rc4 no-ssl2 no-ssl3 no-asm mingw --prefix=/usr/i686-w64-mingw32
+make depend
+make
+
+
+## berkeley DB ##
+Download page: http://www.oracle.com/technetwork/products/berkeleydb/downloads/index-082944.html
+
+cd ~/newpiggycoin/libs/
+wget http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz
+tar zxvf db-4.8.30.NC.tar.gz
+cd db-4.8.30.NC/build_windows/
+../dist/configure --host=i686-w64-mingw32 --enable-mingw --enable-cxx --disable-shared --disable-replication
+make
+
+# (previous line may generate multiple warnings but that should be ok)
+
+
+## boost ##
+Download page: http://www.boost.org/users/download/
+
+cd ~/newpiggycoin/libs/
+wget http://sourceforge.net/projects/boost/files/boost/1.54.0/boost_1_54_0.tar.bz2/download -O boost_1_54_0.tar.bz2
+tar jxvf boost_1_54_0.tar.bz2
+cd boost_1_54_0/
+./bootstrap.sh mingw
+echo "using gcc : mingw32 : i686-w64-mingw32-g++ ;" > user-config.jam
+./bjam toolset=gcc-mingw target-os=windows variant=release threading=multi threadapi=win32 --user-config=user-config.jam -j 2 -sNO_BZIP2=1 -sNO_ZLIB=1 --layout=tagged --build-type=complete --with-chrono --with-filesystem --with-program_options --with-system --with-thread link=static runtime-link=static stage
+
+
+## miniupnpc ##
+Download page: http://miniupnp.tuxfamily.org/files/
+# if you _really_ want upnp support .. first install wine:
+
+sudo apt-get install wine
+cd ~/newpiggycoin/libs/
+wget http://miniupnp.tuxfamily.org/files/download.php?file=miniupnpc-1.9.tar.gz -O miniupnpc-1.9.tar.gz
+tar zxvf miniupnpc-1.9.tar.gz
+cd miniupnpc-1.9/
+sed -i 's/CC = gcc/CC = i686-w64-mingw32-gcc/' Makefile.mingw
+sed -i 's/wingenminiupnpcstrings \$/wine \.\/wingenminiupnpcstrings \$/' Makefile.mingw
+sed -i 's/dllwrap/i686-w64-mingw32-dllwrap/' Makefile.mingw
+sed -i 's/driver-name gcc/driver-name i686-w64-mingw32-gcc/' Makefile.mingw
+AR="i686-w64-mingw32-ar" make -f Makefile.mingw init upnpc-static
+mkdir miniupnpc
+cp *.h miniupnpc/
+
+
+## newpiggycoin ##
+
+### daemon ###
+cd ~/newpiggycoin/src/leveldb/
+TARGET_OS="OS_WINDOWS_CROSSCOMPILE" CXX=i686-w64-mingw32-c++ CC=i686-w64-mingw32-cc LD=i686-w64-mingw32-ld AR=i686-w64-mingw32-ar make libmemenv.a libleveldb.a
+cd ../
+make -f makefile.linux-mingw

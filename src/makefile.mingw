@@ -17,27 +17,27 @@
 
 CXX ?= g++
 
-USE_UPNP:=-
+USE_UPNP?=-
 USE_IPV6:=1
 
-DEPSDIR?=/usr/local
-BOOST_SUFFIX?=-mgw48-mt-s-1_55
+DEPSDIR?=../libs
+BOOST_SUFFIX?=-mgw46-mt-s-1_54
 
-INCLUDEPATHS= \
+INCLUDEPATHS?= \
  -I"$(CURDIR)" \
  -I"$(DEPSDIR)/include" \
- -I"c:/deps/boost_1_55_0" \
- -I"c:/deps/db-4.8.30.NC/build_unix" \
- -I"c:/deps/miniupnpc-1.8" \
- -I"c:/deps/openssl-1.0.1g/include"
+ -I"$(DEPSDIR)/boost_1_54_0" \
+ -I"$(DEPSDIR)/db-4.8.30.NC/build_windows" \
+ -I"$(DEPSDIR)/miniupnpc-1.9" \
+ -I"$(DEPSDIR)/openssl-1.0.1l/include"
 
-LIBPATHS= \
+LIBPATHS?= \
  -L"$(CURDIR)/leveldb" \
  -L"$(DEPSDIR)/lib" \
- -L"c:/deps/boost_1_55_0/stage/lib" \
- -L"c:/deps/db-4.8.30.NC/build_unix" \
- -L"c:/deps/miniupnpc-1.8" \
- -L"c:/deps/openssl-1.0.1g"
+ -L"$(DEPSDIR)/boost_1_54_0/stage/lib" \
+ -L"$(DEPSDIR)/db-4.8.30.NC/build_windows" \
+ -L"$(DEPSDIR)/miniupnpc-1.9" \
+ -L"$(DEPSDIR)/openssl-1.0.1l"
 
 LIBS= \
  -l leveldb \
@@ -51,33 +51,32 @@ LIBS= \
  -l ssl \
  -l crypto
 
-DEFS=-DWIN32 -D_WINDOWS -DBOOST_THREAD_USE_LIB -DBOOST_SPIRIT_THREADSAFE
+DEFS=-D_MT -DWIN32 -DWIN32_LEAN_AND_MEAN -D_WINDOWS -DBOOST_THREAD_USE_LIB -DBOOST_SPIRIT_THREADSAFE
 DEBUGFLAGS=-g
-CFLAGS=-mthreads -O3 -msse2 -w -Wall -Wextra -Wno-ignored-qualifiers -Wformat -Wformat-security -Wno-unused-parameter $(DEBUGFLAGS) $(DEFS) $(INCLUDEPATHS)
-LDFLAGS=-Wl,--dynamicbase -Wl,--nxcompat
+CFLAGS=${ADDITIONALCCFLAGS} -mthreads -O3 -msse2 -w -Wall -Wextra -Wno-ignored-qualifiers -Wformat -Wformat-security -Wno-unused-parameter $(DEBUGFLAGS) $(DEFS) $(INCLUDEPATHS)
+LDFLAGS=-Wl,--dynamicbase -Wl,--nxcompat -static-libgcc -static-libstdc++
 
-TESTDEFS = -DTEST_DATA_DIR=$(abspath test/data)
+#TESTDEFS = -DTEST_DATA_DIR=$(abspath test/data)
 
 ifndef USE_UPNP
 	override USE_UPNP = -
 endif
 ifneq (${USE_UPNP}, -)
- INCLUDEPATHS += -I"C:\miniupnpc-1.6-mgw"
- LIBPATHS += -L"C:\miniupnpc-1.6-mgw"
- LIBS += -l miniupnpc -l iphlpapi
- DEFS += -DSTATICLIB -DUSE_UPNP=$(USE_UPNP)
+	LIBPATHS += -L"$(DEPSDIR)/miniupnpc"
+	LIBS += -l miniupnpc -l iphlpapi
+	DEFS += -DSTATICLIB -DUSE_UPNP=$(USE_UPNP)
 endif
 
 ifneq (${USE_IPV6}, -)
 	DEFS += -DUSE_IPV6=$(USE_IPV6)
 endif
 
-LIBS += -l kernel32 -l user32 -l gdi32 -l comdlg32 -l winspool -l winmm -l shell32 -l comctl32 -l ole32 -l oleaut32 -l uuid -l rpcrt4 -l advapi32 -l ws2_32 -l mswsock -l shlwapi
+LIBS += -l mingwthrd -l kernel32 -l user32 -l gdi32 -l comdlg32 -l winspool -l winmm -l shell32 -l comctl32 -l ole32 -l oleaut32 -l uuid -l rpcrt4 -l advapi32 -l ws2_32 -l mswsock -l shlwapi
 
 # TODO: make the mingw builds smarter about dependencies, like the linux/osx builds are
 HEADERS = $(wildcard *.h)
 
-OBJS= \
+OBJS = \
     obj/groestl.o \
     obj/blake.o \
     obj/bmw.o \
@@ -100,8 +99,8 @@ OBJS= \
     obj/init.o \
     obj/irc.o \
     obj/keystore.o \
-    obj/main.o \
     obj/miner.o \
+    obj/main.o \
     obj/net.o \
     obj/protocol.o \
     obj/bitcoinrpc.o \
@@ -122,7 +121,17 @@ OBJS= \
     obj/scrypt.o \
     obj/scrypt-arm.o \
     obj/scrypt-x86.o \
-    obj/scrypt-x86_64.o 
+    obj/scrypt-x86_64.o \
+    obj/zerocoin/Accumulator.o \
+    obj/zerocoin/AccumulatorProofOfKnowledge.o \
+    obj/zerocoin/Coin.o \
+    obj/zerocoin/CoinSpend.o \
+    obj/zerocoin/Commitment.o \
+    obj/zerocoin/ParamGeneration.o \
+    obj/zerocoin/Params.o \
+    obj/zerocoin/SerialNumberSignatureOfKnowledge.o \
+    obj/zerocoin/SpendMetaData.o \
+    obj/zerocoin/ZeroTest.o
 
 all: newpiggycoind.exe
 
@@ -136,7 +145,6 @@ obj/txdb-leveldb.o: leveldb/libleveldb.a
 
 obj/%.o: %.cpp $(HEADERS)
 	g++ -c $(CFLAGS) -o $@ $<
-
 
 obj/scrypt-x86.o: scrypt-x86.S
 	$(CXX) -c $(xCXXFLAGS) -MMD -o $@ $<
@@ -152,8 +160,8 @@ obj/%.o: %.c
 	@cp $(@:%.o=%.d) $(@:%.o=%.P); \
 	  sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
               -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
-	      
-	rm -f $(@:%.o=%.d)
+	  rm -f $(@:%.o=%.d)
+
 obj/%.o: %.cpp
 	$(CXX) -c $(xCXXFLAGS) -MMD -MF $(@:%.o=%.d) -o $@ $<
 	@cp $(@:%.o=%.d) $(@:%.o=%.P); \
