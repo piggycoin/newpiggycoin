@@ -21,7 +21,7 @@
  QMAKE_CXXFLAGS="%ADDITIONALCCFLAGS%"^
  QMAKE_CFLAGS="%ADDITIONALCCFLAGS%"
 
-@set QMAKESPEC=%QTPATH%\..\mkspecs\win32-g++
+@set QMAKESPEC=%QTPATH%\..\mkspecs\win32-g++-4.6
 @%QTPATH%\qmake.exe %QMPS%
 @echo.
 @echo.

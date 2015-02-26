@@ -1213,7 +1213,15 @@ void ThreadDNSAddressSeed2(void* parg)
 
 unsigned int pnSeed[] =
 {
-    1578613434, 1753993920
+    // These are encoded as in-addr.arpa format, then converted to integer (http://www.webdnstools.com/dnstools/ipcalc)
+    // So 1.2.3.4 would become 4.3.2.1 converted to integer equals 67305985.
+    3132757854, // 94.23.186.186    - piglet.piggy-coin.com
+    1753993920, // 192.210.139.104  - sceptre.piggy-coin.com
+    2609631936, // 192.210.139.155  - sceptre.piggy-coin.com
+    3405329606, // 198.52.249.202   - CryptoArrow Services
+    1116873752, // 24.36.146.66     - CryptoID / Chainz / TCX
+    // Unknown sources, ID'd by Chainz
+    4155618368, 1939369920, 2198329161
 };
 
 void DumpAddresses()
