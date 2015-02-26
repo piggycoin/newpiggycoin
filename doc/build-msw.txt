@@ -23,11 +23,11 @@ Dependencies
 ------------
 Libraries you need to download separately and build:
 
-                default path               download
-OpenSSL         \openssl-1.0.1b-mgw        http://www.openssl.org/source/
-Berkeley DB     \db-4.8.30.NC-mgw          http://www.oracle.com/technology/software/products/berkeley-db/index.html
-Boost           \boost-1.47.0-mgw          http://www.boost.org/users/download/
-miniupnpc       \miniupnpc-1.6-mgw         http://miniupnp.tuxfamily.org/files/
+                default path           download
+OpenSSL         \openssl-1.0.1j        http://www.openssl.org/source/
+Berkeley DB     \db-4.8.30.NC          http://www.oracle.com/technology/software/products/berkeley-db/index.html
+Boost           \boost-1.54.0          http://www.boost.org/users/download/
+miniupnpc       \miniupnpc-1.9         http://miniupnp.tuxfamily.org/files/
 
 Their licenses:
 OpenSSL        Old BSD license with the problematic advertising requirement
@@ -36,10 +36,10 @@ Boost          MIT-like license
 miniupnpc      New (3-clause) BSD license
 
 Versions used in this release:
-OpenSSL      1.0.1b
+OpenSSL      1.0.1j
 Berkeley DB  4.8.30.NC
-Boost        1.47.0
-miniupnpc    1.6
+Boost        1.54.0
+miniupnpc    1.9
 
 
 OpenSSL
@@ -48,37 +48,62 @@ MSYS shell:
 un-tar sources with MSYS 'tar xfz' to avoid issue with symlinks (OpenSSL ticket 2377)
 change 'MAKE' env. variable from 'C:\MinGW32\bin\mingw32-make.exe' to '/c/MinGW32/bin/mingw32-make.exe'
 
-cd /c/openssl-1.0.1b-mgw
-./config
+cd /c/deps/
+wget http://www.openssl.org/source/openssl-1.0.1j.tar.gz
+tar xvfz openssl-1.0.1j.tar.gz
+cd openssl-1.0.1j
+./Configure no-zlib no-shared no-dso no-krb5 no-camellia no-capieng no-cast no-cms no-dtls1 no-gost no-gmp no-heartbeats no-idea no-jpake no-md2 no-mdc2 no-rc5 no-rdrand no-rfc3779 no-rsax no-sctp no-seed no-sha0 no-static_engine no-whirlpool no-rc2 no-rc4 no-ssl2 no-ssl3 no-asm mingw
+make depend
 make
+
 
 Berkeley DB
 -----------
 MSYS shell:
-cd /c/db-4.8.30.NC-mgw/build_unix
-sh ../dist/configure --enable-mingw --enable-cxx
+
+cd /c/deps/
+wget http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz
+tar xvfz db-4.8.30.NC.tar.gz
+cd db-4.8.30.NC/build_windows
+../dist/configure --enable-mingw --enable-cxx --disable-shared --disable-replication
 make
+
 
 Boost
 -----
-DOS prompt:
-downloaded boost jam 3.1.18
-cd \boost-1.47.0-mgw
-bjam toolset=gcc --build-type=complete stage
+MSYS shell:
+
+cd /c/deps/
+wget http://sourceforge.net/projects/boost/files/boost/1.54.0/boost_1_54_0.tar.bz2/download -O boost_1_54_0.tar.bz2
+tar jxvf boost_1_54_0.tar.bz2
+cd boost_1_54_0/
+cmd
+bootstrap.bat mingw
+b2 toolset=gcc target-os=windows variant=release threading=multi threadapi=win32 -j 2 -sNO_BZIP2=1 -sNO_ZLIB=1 --layout=tagged --build-type=complete --with-chrono --with-filesystem --with-program_options --with-system --with-thread link=static runtime-link=static stage
+exit
+
 
 MiniUPnPc
 ---------
 UPnP support is optional, make with USE_UPNP= to disable it.
 
 MSYS shell:
-cd /c/miniupnpc-1.6-mgw
-make -f Makefile.mingw
+cd /c/miniupnpc-1.9/
+make -f Makefile.mingw init upnpc-static
 mkdir miniupnpc
 cp *.h miniupnpc/
 
-newpiggycoin
+LevelDB
 -------
-DOS prompt:
-cd \newpiggycoin\src
-mingw32-make -f makefile.mingw
+We do not have an effective recipe for LevelDB so we must build it here.
+
+MSYS shell:
+cd /c/{path to newpiggycoin}/src/leveldb
+TARGET_OS=NATIVE_WINDOWS make libleveldb.a libmemenv.a
+
+newpiggycoind.exe
+-------
+MSYS shell:
+cd /c/{path to newpiggycoin}/src/
+make -f makefile.mingw
 strip newpiggycoind.exe
