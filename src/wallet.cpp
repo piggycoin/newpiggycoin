@@ -16,8 +16,10 @@
 using namespace std;
 extern unsigned int nStakeMaxAge;
 
-unsigned int nStakeSplitAge = 1 * 24 * 60 * 60;
-int64_t nStakeCombineThreshold = 1000 * COIN;
+// The following split & combine thresholds are important to security
+// Should not be adjusted if you don't understand the consequences
+unsigned int nStakeSplitAge = 12 * 60 * 60;
+int64_t nStakeCombineThreshold = 48000 * COIN;
 
 //////////////////////////////////////////////////////////////////////////////
 //
