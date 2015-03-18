@@ -1,0 +1,21 @@
+PiggyStakes 1.2.1.1:
+ - Reject blocks which stake less than 50% of entitled reward (pre v1.2 stakes will be rejected).
+ - Adjust nStakeCombineThreshold to 48,000p (combine small UTXOs, was 1,000p).
+ - Adjust nStakeSplitAge to 12hrs (split if stake less than 12hrs old, decreases stake splitting, was 24hrs).
+ - Update protocol version to 60101 was 60014 (begin version-protocol alignment and prep for future fork cut-off).
+ - Updated LevelDB from 1.15 to 1.18 (current bitcoin 0.10 standard).
+ - Update checkpoints.
+ - Makefile updates.
+ - Minor bugfixes.
+
+PiggyStakes 1.2.0.0:
+ - Fix to 3% at block 415,000.
+ - Set StakeMaxAge set to 9 months.
+ - Added checkpoints.
+ - Fix build dependencies / directories.
+ - Added contrib/easywinbuilder.
+ - Updates to makefiles and build documentation.
+ - Updated pnSeed nodes.
+ - Updated DNS-Seeds.
+ - Minor bugfixes.
+ 
