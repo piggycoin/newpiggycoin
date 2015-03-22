@@ -2850,6 +2850,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         CAddress addrFrom;
         uint64_t nNonce = 1;
         vRecv >> pfrom->nVersion >> pfrom->nServices >> nTime >> addrme;
+
         if (pfrom->nVersion < MIN_PROTO_VERSION)
         {
             // Since February 20, 2012, the protocol is initiated at version 209,
@@ -2922,6 +2923,15 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
                 addrman.Add(addrFrom, addrFrom);
                 addrman.Good(addrFrom);
             }
+        }
+
+        // Ban partner if below this protocol version (typically to control fork'd updates)
+        // * After we've provided our information and gleaned addresses of possible peers
+        if (pfrom->nVersion < MIN_BAN_VERSION)
+        {
+            printf("partner %s using old version %i; banning\n", pfrom->addr.ToString().c_str(), pfrom->nVersion);
+            pfrom->Misbehaving(100);
+            return false;
         }
 
         // Ask the first connected node for block updates
