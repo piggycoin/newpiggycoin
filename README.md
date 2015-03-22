@@ -3,7 +3,7 @@ Piggycoin integration/staging tree
 
 http://www.piggy-coin.org
 
-Copyright (c) 2014 Piggycoin Developers  
+Copyright (c) 2014-2015 Piggycoin Developers  
 Copyright (c) 2014 Hackcoin Developers  
 Copyright (c) 2013-2014 NovaCoin Developers  
 Copyright (c) 2011-2012 PPCoin Developers  
@@ -19,7 +19,7 @@ Piggycoin is a beginner-friendly cryptocurrency that uses X11 for proof-of-work,
  - 1,000,000,000 total coins
  - 23,700 coins per block (PoW until block 10,000)
  - 0.13% effective annual interest (PoS @ block 8,000)
- - 3% interest (@ block 415,000 Approx March 6th, 2015)
+ - 3% interest (@ block 415,000 Approx March 7th, 2015)
  
 For more information, as well as an immediately useable, binary version of
 the Piggycoin client sofware, see http://www.piggy-coin.org.
