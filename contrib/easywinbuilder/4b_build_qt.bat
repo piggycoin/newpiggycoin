@@ -26,7 +26,7 @@
 @echo.
 @echo.
 @echo building qt - make...
-mingw32-make -f Makefile.Release
+mingw32-make -j -f Makefile.Release
 @if errorlevel 1 goto continue
 @echo !!!!!!! %COINNAME%-qt DONE: Find %COINNAME%-qt.exe in ./release :)
 :continue
