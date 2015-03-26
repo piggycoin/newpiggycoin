@@ -2,7 +2,7 @@ PiggyStakes 1.2.2.0 (Operation Sever-Chain):
  - Update protocol version to 60200 from 60101.
  - Ban peers w/protocol 60014 or less.
  - Do not accept block requests from peers w/protocol 60002-60014.
- - Lower acceptable Drift from +/-20 mins to -7/+8 mins.
+ - Minor bugfixes.
 
 PiggyStakes 1.2.1.1 (Maintenance Release):
  - Reject blocks which stake less than 50% of entitled reward (pre v1.2 stakes will be rejected).
