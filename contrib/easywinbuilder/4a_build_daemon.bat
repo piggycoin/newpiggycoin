@@ -26,7 +26,7 @@
 @rem set PARAMS=%PARAMS% USE_UPNP=-
 
 @cd %ROOTPATH%\src
-@mingw32-make -j -f makefile.mingw %PARAMS%
+@mingw32-make %MAKEDIRECTIVES% -f makefile.mingw %PARAMS%
 @if errorlevel 1 goto error
 @echo.
 @echo.
