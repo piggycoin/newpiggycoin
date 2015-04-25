@@ -12,6 +12,9 @@
 #include "ui_interface.h"
 #include "qtipcserver.h"
 
+// Fervor
+#include "Fervor/fvupdater.h"
+
 #include <QApplication>
 #include <QMessageBox>
 #include <QTextCodec>
@@ -124,6 +127,19 @@ int main(int argc, char *argv[])
 
     Q_INIT_RESOURCE(bitcoin);
     QApplication app(argc, argv);
+
+    // Fervor - Setup QApplication details
+    //QApplication::setApplicationName("Sample");   // Grab from .pro TARGET
+    //QApplication::setApplicationVersion("1.0");   // Grab from .pro VERSION
+    QApplication::setOrganizationName("Team PiggyCoin");
+    QApplication::setOrganizationDomain("piggy-coin.com");
+
+    // Fervor - Initialize appscast URL
+    FvUpdater::sharedUpdater()->SetFeedURL("https://www.piggy-coin.com/piggybanks/Appcast.xml");
+
+    // Fervor - Check for updates silently -- This will not block the initialization of
+    //          your application, just start a HTTP request and return immediately.
+    FvUpdater::sharedUpdater()->CheckForUpdatesSilent();
 
     // Install global event filter that makes sure that long tooltips can be word-wrapped
     app.installEventFilter(new GUIUtil::ToolTipToRichTextFilter(TOOLTIP_WRAP_THRESHOLD, &app));

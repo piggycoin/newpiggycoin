@@ -31,6 +31,9 @@
 #include "rpcconsole.h"
 #include "wallet.h"
 
+// Fervor
+#include "Fervor/fvupdater.h"
+
 #ifdef Q_OS_MAC
 #include "macdockiconhandler.h"
 #endif
@@ -304,12 +307,15 @@ void BitcoinGUI::createActions()
     quitAction->setToolTip(tr("Quit application"));
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
     quitAction->setMenuRole(QAction::QuitRole);
-    aboutCardAction = new QAction(tr("Piggy Website"), this);
+    aboutCardAction = new QAction(QIcon(":/icons/bitcoin"), tr("&Piggy Website"), this);
     aboutCardAction->setToolTip(tr("Go to Piggy website"));
+    aboutUpdates = new QAction(QIcon(":/icons/bitcoin"), tr("&Check for Updates"), this);
+    aboutUpdates->setToolTip(tr("Check for updates to newpiggycoin"));
+    //aboutUpdates->setMenuRole(QAction::AboutRole);
     aboutAction = new QAction(QIcon(":/icons/bitcoin"), tr("&About Piggybank"), this);
     aboutAction->setToolTip(tr("Show information about newpiggycoin"));
     aboutAction->setMenuRole(QAction::AboutRole);
-    aboutQtAction = new QAction(QIcon(":/trolltech/qmessagebox/images/qtlogo-64.png"), tr("About &Qt"), this);
+    aboutQtAction = new QAction(QIcon(":/icons/qtlogo"), tr("About &Qt"), this);
     aboutQtAction->setToolTip(tr("Show information about Qt"));
     aboutQtAction->setMenuRole(QAction::AboutQtRole);
     optionsAction = new QAction(QIcon(":/icons/options"), tr("&Options..."), this);
@@ -337,6 +343,7 @@ void BitcoinGUI::createActions()
 
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(aboutCardAction, SIGNAL(triggered()), this, SLOT(aboutCardClicked()));
+    connect(aboutUpdates, SIGNAL(triggered()), FvUpdater::sharedUpdater(), SLOT(CheckForUpdatesNotSilent()));
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutClicked()));
     connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
     connect(optionsAction, SIGNAL(triggered()), this, SLOT(optionsClicked()));
@@ -377,6 +384,7 @@ void BitcoinGUI::createMenuBar()
 
     QMenu *help = appMenuBar->addMenu(tr("&Help"));
     help->addAction(openRPCConsoleAction);
+    help->addAction(aboutUpdates);
     help->addSeparator();
 #ifdef WIN32
     help->addAction(aboutCardAction);
