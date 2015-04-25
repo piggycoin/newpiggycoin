@@ -21,23 +21,23 @@ USE_UPNP?=-
 USE_IPV6:=1
 
 DEPSDIR?=../libs
-BOOST_SUFFIX?=-mgw46-mt-s-1_54
+BOOST_SUFFIX?=-mgw48-mt-s-1_57
 
 INCLUDEPATHS?= \
  -I"$(CURDIR)" \
  -I"$(DEPSDIR)/include" \
- -I"$(DEPSDIR)/boost_1_54_0" \
+ -I"$(DEPSDIR)/boost_1_57_0" \
  -I"$(DEPSDIR)/db-4.8.30.NC/build_windows" \
  -I"$(DEPSDIR)/miniupnpc-1.9" \
- -I"$(DEPSDIR)/openssl-1.0.1l/include"
+ -I"$(DEPSDIR)/openssl-1.0.1j/include"
 
 LIBPATHS?= \
  -L"$(CURDIR)/leveldb" \
  -L"$(DEPSDIR)/lib" \
- -L"$(DEPSDIR)/boost_1_54_0/stage/lib" \
+ -L"$(DEPSDIR)/boost_1_57_0/stage/lib" \
  -L"$(DEPSDIR)/db-4.8.30.NC/build_windows" \
  -L"$(DEPSDIR)/miniupnpc-1.9" \
- -L"$(DEPSDIR)/openssl-1.0.1l"
+ -L"$(DEPSDIR)/openssl-1.0.1j"
 
 LIBS= \
  -l leveldb \
