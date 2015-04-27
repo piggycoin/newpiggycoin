@@ -53,6 +53,7 @@
         <file alias="twitter">res/icons/TW.png</file>
         <file alias="face">res/icons/face.png</file>
         <file alias="social">res/icons/social.png</file>
+        <file alias="qtlogo">res/icons/qtlogo-64.png</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="about">res/images/about.png</file>

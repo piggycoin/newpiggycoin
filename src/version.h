@@ -30,10 +30,15 @@ static const int DATABASE_VERSION = 70508;
 // network protocol versioning
 //
 
-static const int PROTOCOL_VERSION = 60101;
+//static const int PROTOCOL_VERSION = 60014;      // Versions 1.0 through 1.2.0     // From this, PiggyCoin appears to be forked from bitcoin core ~0.6.2
+//static const int PROTOCOL_VERSION = 60101;      // Version 1.2.1.01
+static const int PROTOCOL_VERSION = 60200;      // Version 1.2.2.0
 
 // earlier versions not supported as of Feb 2012, and are disconnected
 static const int MIN_PROTO_VERSION = 209;
+
+// old versions not supported as of Mar 2015, and are banned (Versions 1.2.0 or lower)
+static const int MIN_BAN_VERSION = 60014;
 
 // nTime field added to CAddress, starting with this version;
 // if possible, avoid requesting addresses nodes older than this
@@ -41,7 +46,7 @@ static const int CADDR_TIME_VERSION = 31402;
 
 // only request blocks from nodes outside this range of versions
 static const int NOBLKS_VERSION_START = 60002;
-static const int NOBLKS_VERSION_END = 60006;
+static const int NOBLKS_VERSION_END = 60014;    // Do not request blocks from versions 1.0 through 1.2.0
 
 // BIP 0031, pong message, is enabled for all versions AFTER this one
 static const int BIP0031_VERSION = 60000;

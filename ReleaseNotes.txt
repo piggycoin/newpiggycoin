@@ -1,4 +1,13 @@
-PiggyStakes 1.2.1.1:
+PiggyStakes 1.2.2.0 (Operation Sever-Chain):
+ - Added Fervor update(s) checking & alerting.
+ - Update protocol version to 60200 from 60101.
+ - Ban peers w/protocol 60014 or less.
+ - Do not accept block requests from peers w/protocol 60002-60014.
+ - Update checkpoints.
+ - Makefile updates.
+ - Minor bugfixes.
+
+PiggyStakes 1.2.1.1 (Maintenance Release):
  - Reject blocks which stake less than 50% of entitled reward (pre v1.2 stakes will be rejected).
  - Adjust nStakeCombineThreshold to 48,000p (combine small UTXOs, was 1,000p).
  - Adjust nStakeSplitAge to 12hrs (split if stake less than 12hrs old, decreases stake splitting, was 24hrs).
@@ -8,7 +17,7 @@ PiggyStakes 1.2.1.1:
  - Makefile updates.
  - Minor bugfixes.
 
-PiggyStakes 1.2.0.0:
+PiggyStakes 1.2.0.0 Operation Stake-Fix):
  - Fix to 3% at block 415,000.
  - Set StakeMaxAge set to 9 months.
  - Added checkpoints.

@@ -21,12 +21,12 @@
  QMAKE_CXXFLAGS="%ADDITIONALCCFLAGS%"^
  QMAKE_CFLAGS="%ADDITIONALCCFLAGS%"
 
-@set QMAKESPEC=%QTPATH%\..\mkspecs\win32-g++-4.6
+@set QMAKESPEC=%QTPATH%\..\mkspecs\win32-g++
 @%QTPATH%\qmake.exe %QMPS%
 @echo.
 @echo.
 @echo building qt - make...
-mingw32-make -f Makefile.Release
+mingw32-make %MAKEDIRECTIVES% -f Makefile.Release
 @if errorlevel 1 goto continue
 @echo !!!!!!! %COINNAME%-qt DONE: Find %COINNAME%-qt.exe in ./release :)
 :continue

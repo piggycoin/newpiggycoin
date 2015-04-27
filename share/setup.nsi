@@ -5,7 +5,7 @@ SetCompressor /SOLID lzma
 
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
-!define VERSION 1.2.1.1
+!define VERSION 1.2.2.0
 !define COMPANY "PiggyCoin Project"
 !define URL http://www.piggy-coin.com/
 
@@ -45,13 +45,13 @@ Var StartMenuGroup
 !insertmacro MUI_LANGUAGE English
 
 # Installer attributes
-OutFile piggycoin-1.2.1.1-win32-setup.exe
+OutFile piggycoin-1.2.2.0-win32-setup.exe
 InstallDir $PROGRAMFILES\PiggyCoin
 CRCCheck on
 XPStyle on
 BrandingText " "
 ShowInstDetails show
-VIProductVersion 1.2.1.1
+VIProductVersion 1.2.2.0
 VIAddVersionKey ProductName PiggyCoin
 VIAddVersionKey ProductVersion "${VERSION}"
 VIAddVersionKey CompanyName "${COMPANY}"

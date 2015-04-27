@@ -2850,6 +2850,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         CAddress addrFrom;
         uint64_t nNonce = 1;
         vRecv >> pfrom->nVersion >> pfrom->nServices >> nTime >> addrme;
+
         if (pfrom->nVersion < MIN_PROTO_VERSION)
         {
             // Since February 20, 2012, the protocol is initiated at version 209,
@@ -2926,11 +2927,12 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 
         // Ask the first connected node for block updates
         static int nAskedForBlocks = 0;
-        if (!pfrom->fClient && !pfrom->fOneShot &&
-            (pfrom->nStartingHeight > (nBestHeight - 144)) &&
+        if ( pfrom->nVersion > MIN_BAN_VERSION &&        // Do not ask from deprecated protocol version(s)
             (pfrom->nVersion < NOBLKS_VERSION_START ||
-             pfrom->nVersion >= NOBLKS_VERSION_END) &&
-             (nAskedForBlocks < 1 || vNodes.size() <= 1))
+             pfrom->nVersion > NOBLKS_VERSION_END) &&
+            !pfrom->fClient && !pfrom->fOneShot &&
+            (pfrom->nStartingHeight > (nBestHeight - 144)) &&
+            (nAskedForBlocks < 1 || vNodes.size() <= 1) )
         {
             nAskedForBlocks++;
             pfrom->PushGetBlocks(pindexBest, uint256(0));
@@ -2954,11 +2956,21 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 
         printf("receive version message: version %d, blocks=%d, us=%s, them=%s, peer=%s\n", pfrom->nVersion, pfrom->nStartingHeight, addrme.ToString().c_str(), addrFrom.ToString().c_str(), pfrom->addr.ToString().c_str());
 
-        cPeerBlockCounts.input(pfrom->nStartingHeight);
+        // Politely ban partner if below this protocol version (typically to control fork'd updates)
+        // By politely we mean that we have still provided our protocol/version information, forwarded alerts and gleaned addresses of possible peers.
+        if (pfrom->nVersion <= MIN_BAN_VERSION)
+        {
+            printf("partner %s is using deprecated protocol version %i;, politely banning.\n", pfrom->addr.ToString().c_str(), pfrom->nVersion);
+            pfrom->Misbehaving(100);
+        }
+        else
+        {
+            cPeerBlockCounts.input(pfrom->nStartingHeight);
 
-        // ppcoin: ask for pending sync-checkpoint if any
-        if (!IsInitialBlockDownload())
-            Checkpoints::AskForPendingSyncCheckpoint(pfrom);
+            // ppcoin: ask for pending sync-checkpoint if any
+            if (!IsInitialBlockDownload())
+                Checkpoints::AskForPendingSyncCheckpoint(pfrom);
+        }
     }
 
 

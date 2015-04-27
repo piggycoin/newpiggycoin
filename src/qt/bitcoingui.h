@@ -94,6 +94,7 @@ private:
     QAction *signMessageAction;
     QAction *verifyMessageAction;
     QAction *aboutCardAction;
+    QAction *aboutUpdates;
     QAction *aboutAction;
     QAction *receiveCoinsAction;
     QAction *optionsAction;
