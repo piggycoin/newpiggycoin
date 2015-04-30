@@ -32,7 +32,7 @@
 #include "wallet.h"
 
 // Fervor
-#include "Fervor/fvupdater.h"
+#include "fervor/fvupdater.h"
 
 #ifdef Q_OS_MAC
 #include "macdockiconhandler.h"
