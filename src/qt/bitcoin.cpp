@@ -13,7 +13,7 @@
 #include "qtipcserver.h"
 
 // Fervor
-#include "Fervor/fvupdater.h"
+#include "fervor/fvupdater.h"
 
 #include <QApplication>
 #include <QMessageBox>
