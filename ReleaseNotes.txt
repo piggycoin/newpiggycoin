@@ -1,3 +1,10 @@
+PiggyStakes 1.2.2.1 (Hey Mac-arena):
+ - Mac specific UI fixes thanks to MystPhysX.
+2Do? - Change Fervor update URL to http from https
+    (Request is seen anyway, but removes need for custom built Qt w/OpenSSH)
+- Update protocol version to 60201 from 60200.
+2Do? - Update checkpoints.
+
 PiggyStakes 1.2.2.0 (Operation Sever-Chain):
  - Added Fervor update(s) checking & alerting.
  - Update protocol version to 60200 from 60101.
@@ -17,7 +24,7 @@ PiggyStakes 1.2.1.1 (Maintenance Release):
  - Makefile updates.
  - Minor bugfixes.
 
-PiggyStakes 1.2.0.0 Operation Stake-Fix):
+PiggyStakes 1.2.0.0 (Operation Stake-Fix):
  - Fix to 3% at block 415,000.
  - Set StakeMaxAge set to 9 months.
  - Added checkpoints.

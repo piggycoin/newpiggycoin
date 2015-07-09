@@ -1,4 +1,4 @@
-newpiggycoin 1.2.2.0
+newpiggycoin wallet
 
 Copyright (c) 2014-2015 PiggyCoin Developers
 Copyright (c) 2013 NovaCoin Developers
