@@ -1,16 +1,14 @@
 PiggyStakes 1.2.2.1 (Hey Mac-arena):
  - Mac specific UI fixes thanks to MystPhysX.
-2Do? - Change Fervor update URL to http from https
-    (Request is seen anyway, but removes need for custom built Qt w/OpenSSH)
-- Update protocol version to 60201 from 60200.
-2Do? - Update checkpoints.
+ - Updated Fervor AppCast to version 1.2.2.1
+ - Updated checkpoints.
 
 PiggyStakes 1.2.2.0 (Operation Sever-Chain):
  - Added Fervor update(s) checking & alerting.
- - Update protocol version to 60200 from 60101.
+ - Updated protocol version to 60200 from 60101.
  - Ban peers w/protocol 60014 or less.
  - Do not accept block requests from peers w/protocol 60002-60014.
- - Update checkpoints.
+ - Updated checkpoints.
  - Makefile updates.
  - Minor bugfixes.
 
@@ -18,9 +16,9 @@ PiggyStakes 1.2.1.1 (Maintenance Release):
  - Reject blocks which stake less than 50% of entitled reward (pre v1.2 stakes will be rejected).
  - Adjust nStakeCombineThreshold to 48,000p (combine small UTXOs, was 1,000p).
  - Adjust nStakeSplitAge to 12hrs (split if stake less than 12hrs old, decreases stake splitting, was 24hrs).
- - Update protocol version to 60101 was 60014 (begin version-protocol alignment and prep for future fork cut-off).
+ - Updated protocol version to 60101 was 60014 (begin version-protocol alignment and prep for future fork cut-off).
  - Updated LevelDB from 1.15 to 1.18 (current bitcoin 0.10 standard).
- - Update checkpoints.
+ - Updated checkpoints.
  - Makefile updates.
  - Minor bugfixes.
 

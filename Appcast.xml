@@ -29,7 +29,7 @@
                         <!-- Windows version. -->
                         <enclosure
                                 url="https://www.piggy-coin.com/getting-started/"
-                                fervor:version="1.2.2.0"
+                                fervor:version="1.2.2.1"
                                 fervor:platform="Q_OS_WIN32"
                                 length="11576"
                                 type="text/html" />
@@ -37,7 +37,7 @@
                         <!-- Linux version. -->
                         <enclosure
                                 url="https://www.piggy-coin.com/getting-started/"
-                                fervor:version="1.2.1.1"
+                                fervor:version="1.2.2.1"
                                 fervor:platform="Q_OS_LINUX"
                                 length="11576"
                                 type="text/html" />
@@ -48,7 +48,7 @@
                          -->
                         <enclosure
                                 url="https://www.piggy-coin.com/getting-started/"
-                                sparkle:version="1.2.1.1"
+                                sparkle:version="1.2.2.1"
                                 fervor:platform="Q_OS_MAC"
                                 length="11576"
                                 type="text/html"
