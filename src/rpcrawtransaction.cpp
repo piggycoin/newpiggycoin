@@ -26,7 +26,7 @@ void ScriptPubKeyToJSON(const CScript& scriptPubKey, Object& out, bool fIncludeH
 
     out.push_back(Pair("asm", scriptPubKey.ToString()));
 
-    if (fIncludeHex)
+    if (fIncludeHex || GetBoolArg("-scriptpubkeyhex", false))
         out.push_back(Pair("hex", HexStr(scriptPubKey.begin(), scriptPubKey.end())));
 
     if (!ExtractDestinations(scriptPubKey, type, addresses, nRequired))
