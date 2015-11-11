@@ -32,7 +32,8 @@ static const int DATABASE_VERSION = 70508;
 
 //static const int PROTOCOL_VERSION = 60014;      // Versions 1.0 through 1.2.0     // From this, PiggyCoin appears to be forked from bitcoin core ~0.6.2
 //static const int PROTOCOL_VERSION = 60101;      // Version 1.2.1.1
-static const int PROTOCOL_VERSION = 60200;      // Version 1.2.2.0 - 1.2.2.1
+//static const int PROTOCOL_VERSION = 60200;      // Version 1.2.2.0 - 1.2.2.1
+static const int PROTOCOL_VERSION = 60300;      // Version 1.2.3.0
 
 // earlier versions not supported as of Feb 2012, and are disconnected
 static const int MIN_PROTO_VERSION = 209;
