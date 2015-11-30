@@ -19,7 +19,7 @@ extern unsigned int nStakeMaxAge;
 // The following split & combine thresholds are important to security
 // Should not be adjusted if you don't understand the consequences
 unsigned int nStakeSplitAge = 12 * 60 * 60;
-int64_t nStakeCombineThreshold = 50000 * COIN;
+int64_t nStakeCombineThreshold = 64000 * COIN;
 
 //////////////////////////////////////////////////////////////////////////////
 //
