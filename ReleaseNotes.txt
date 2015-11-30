@@ -1,6 +1,18 @@
+PiggyStakes 1.2.3.0 (Operation DERsig-Fix):
+ - Added scriptpubkeyhex .conf directive (Needed for APIs)
+ - Applied critical fix for OpenSSL DER signature handling.
+ - Applied critical fix for invalid signatures with crafted length.
+ - Updated README.md errors & building with uPNP disabled.
+ - Changed nStakeCombineThreshold to 64K-coins from 48K
+ - Added Splitting threshold of 2*nStakeCombineThreshold=100K or higher to split.
+ - Changed Fervor update URL to http from https (Address OpenSSL Qt issue).
+ - Updated protocol version to 60300 from 60200.
+ - Updated App & Appcast to version 1.2.3.0
+ - Updated checkpoints.
+
 PiggyStakes 1.2.2.1 (Hey Mac-arena):
  - Mac specific UI fixes thanks to MystPhysX.
- - Updated Fervor AppCast to version 1.2.2.1
+ - Updated Fervor Appcast to version 1.2.2.1
  - Updated checkpoints.
 
 PiggyStakes 1.2.2.0 (Operation Sever-Chain):

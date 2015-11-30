@@ -135,7 +135,7 @@ int main(int argc, char *argv[])
     QApplication::setOrganizationDomain("piggy-coin.com");
 
     // Fervor - Initialize appscast URL
-    FvUpdater::sharedUpdater()->SetFeedURL("https://www.piggy-coin.com/piggybanks/Appcast.xml");
+    FvUpdater::sharedUpdater()->SetFeedURL("http://www.piggy-coin.com/piggybanks/Appcast.xml");
 
     // Fervor - Check for updates silently -- This will not block the initialization of
     //          your application, just start a HTTP request and return immediately.

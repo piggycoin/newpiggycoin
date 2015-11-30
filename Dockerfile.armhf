@@ -1,0 +1,14 @@
+FROM armbuild/debian:jessie
+RUN apt-get update
+RUN apt-get install -y git wget build-essential libssl-dev libboost-all-dev libminiupnpc-dev
+RUN wget http://ftp.debian.org/debian/pool/main/d/db/libdb5.1_5.1.29-5_armhf.deb && dpkg -i libdb5.1_5.1.29-5_armhf.deb
+RUN wget http://ftp.debian.org/debian/pool/main/d/db/libdb5.1++_5.1.29-5_armhf.deb && dpkg -i libdb5.1++_5.1.29-5_armhf.deb
+RUN wget http://ftp.debian.org/debian/pool/main/d/db/libdb5.1-dev_5.1.29-5_armhf.deb && dpkg -i libdb5.1-dev_5.1.29-5_armhf.deb
+RUN wget http://ftp.debian.org/debian/pool/main/d/db/libdb5.1++-dev_5.1.29-5_armhf.deb && dpkg -i libdb5.1++-dev_5.1.29-5_armhf.deb
+RUN git clone https://github.com/piggycoin/newpiggycoin.git /usr/local/src/piggycoin
+RUN cd /usr/local/src/piggycoin/src && make -f makefile.unix USE_UPNP= USE_IPV6=1 USE_QRCODE=0 && strip newpiggycoind
+RUN ln -s /usr/local/src/piggycoin/src/newpiggycoind /usr/local/bin/newpiggycoind
+RUN ln -s /usr/local/src/piggycoin/src/newpiggycoind /usr/local/bin/piggycoind
+EXPOSE 54481
+CMD bash
+
